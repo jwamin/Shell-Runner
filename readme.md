@@ -8,7 +8,7 @@ A simple project task runner with build, watch and dist
 
 ## Usage
 
-TODO: Write usage instructions
+
 
 ## Contributing
 
