@@ -1,0 +1,15 @@
+{
+  "dest": "dist/js/lib/modernizr-custom.js",
+  "options": [
+    "setClasses"
+  ],
+  "uglify": false,
+  "files": {
+    "src": [
+      "dist/**/*.js",
+      "dist/**/*.css",
+      "dist/**/*.html",
+      "dist/*.html"
+    ]
+  }
+}

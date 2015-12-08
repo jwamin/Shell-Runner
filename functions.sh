@@ -85,6 +85,14 @@ uppercaseERER(){
 	done
 }
 
+modernize(){
+	./node_modules/customizr/bin/customizr -c customizr.json
+}
+
+devModernize(){
+	mkdir $dest/js/lib
+	cp -r ./src/js/lib/modernizr-dev.js $dest/js/lib/modernizr-custom.js
+}
 
 watchTasks(){
 	# csscmd1="node-sass src/scss/main.scss "$dest &&
@@ -129,6 +137,7 @@ watch () {
 	# do trap , run cleanup on trap
 
 	message 1
+	devModernize
 	# createWorkingDir
 	# deleteDir
 	# compileSASSandPost
@@ -144,13 +153,14 @@ build () {
 	#echoCSSCmd
 	#do build, don't compile
 	message 0
-	createWorkingDir
 	deleteDir
+	createWorkingDir
 	compileSASSandPost
 	compileVendorCss
 	webpackER
 	htmlCopy
 	cleanUp
+	devModernize
 	message 2
 }
 
@@ -164,6 +174,7 @@ dist () {
 	compileVendorCss
 	webpackER
 	htmlCopy
+	modernize
 	cleanUp
 	message 2
 

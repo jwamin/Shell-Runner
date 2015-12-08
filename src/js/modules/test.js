@@ -13,4 +13,12 @@ class testClass {
 
 }
 
-export default testClass;
+function countUp(limit){
+	var i = 0;
+	while(i<limit){
+		console.log(i+1);
+		i++;
+	}
+}
+
+export {testClass, countUp};

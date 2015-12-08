@@ -8,6 +8,8 @@
     "autoprefixer": "^6.1.0",
     "babel-core": "^6.1.4",
     "babel-loader": "^6.1.0",
+    "customizr": "^1.0.0-alpha",
+    "modernizr": "^3.2.0",
     "moment": "^2.10.6",
     "postcss": "^5.0.11",
     "split": "^1.0.0",

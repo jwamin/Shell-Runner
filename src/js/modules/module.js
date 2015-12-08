@@ -1,3 +1,14 @@
+"use strict";
 
+const _private = new WeakMap();
 
-module.exports = "hello, world"
+class myClass{
+	constructor(value){
+	_private.set(this,value);
+	}
+	readPrivate(){
+		return _private.get(this);
+	}
+}
+
+export default myClass;

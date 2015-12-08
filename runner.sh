@@ -8,6 +8,7 @@
 # 
 # JAVASCRIPT
 # transpiles es6 code to es5 via babel, concats and includes javascript modules and frameworks, minifys for distribution
+# includes modernizr for dist build
 # 
 # CSS
 # Compiles SCSS to CSS, 
