@@ -109,7 +109,7 @@ watchTasks(){
 	#node-sass src/scss/main.scss ./build/css/package.css && postcss -c ./postcss.json -r ./build/css/package.css &
 	# watchy --watch ./src/scss -- node-sass src/scss/main.scss $dest/css/package.css &
 	# watchy --watch $dest/css -- postcss -c ./postcss.json -r $dest/css/package.css &
-	webpack -watch --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js  & 
+	webpack --watch --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js  & 
 	watch-run -p 'src/*.html' -i cp ./src/*.html $dest &
 	browser-sync start --server $dest --files $dest
 }
