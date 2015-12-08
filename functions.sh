@@ -50,6 +50,7 @@ compileVendorCss (){
 		mkdir -p $dest/css
 	fi
 	cat ./node_modules/animate.css/animate.css > $dest/css/vendor.css 
+	cat ./node_modules/sweetalert/dist/sweetalert.css >> $dest/css/vendor.css
 }
 
 postIfy(){
@@ -141,7 +142,7 @@ watch () {
 	# createWorkingDir
 	# deleteDir
 	# compileSASSandPost
-	# compileVendorCss
+	compileVendorCss
 	# webpackER
 	# htmlCopy
 	watchTasks

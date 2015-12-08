@@ -3,6 +3,9 @@ import * as moduleImport from "./modules/test";
 
 import myClass from "./modules/module";
 
+require("sweetalert");
+
+
 //import CommonJS Module
 //var mod = require("./modules/module.js");
 
@@ -15,7 +18,7 @@ var moLOLs = "LOLOLolololololololol";
 //Instantiate ES2015 Class
 var myTestObj = new moduleImport.testClass(moLOLs);
 
-moduleImport.countUp(9989);
+moduleImport.countUp(3);
 
 console.log(moduleImport)
 
@@ -39,3 +42,6 @@ myObj.readPrivate();
 var elem = document.createElement("h1");
 elem.innerHTML = myObj.readPrivate();
 document.body.appendChild(elem)
+
+
+swal({   title: "Error!",   text: "Here's my error message!",   type: "error",   confirmButtonText: "Cool" });
