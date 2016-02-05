@@ -49,8 +49,12 @@ compileVendorCss (){
 	if ! [ -d $dest/css ]; then
 		mkdir -p $dest/css
 	fi
-	cat ./node_modules/animate.css/animate.css > $dest/css/vendor.css 
-	cat ./node_modules/sweetalert/dist/sweetalert.css >> $dest/css/vendor.css
+	touch $dest/css/vendor.css &&
+	cat ./node_modules/animate.css/animate.css > $dest/css/vendor.css &&
+	cat ./node_modules/purecss/build/pure-min.css >> $dest/css/vendor.css &&
+	cat ./node_modules/purecss/build/grids-responsive-min.css >> $dest/css/vendor.css &&
+	cat ./node_modules/sweetalert/dist/sweetalert.css >> $dest/css/vendor.css 
+	
 }
 
 postIfy(){
@@ -76,7 +80,8 @@ babelify () {
 }
 
 htmlCopy() {
-	cp ./src/*.html $dest
+	cp ./src/*.html $dest &&
+	cp -r ./src/assets $dest
 }
 
 uppercaseERER(){
@@ -112,6 +117,7 @@ watchTasks(){
 	# watchy --watch $dest/css -- postcss -c ./postcss.json -r $dest/css/package.css &
 	webpack --watch --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js  & 
 	watch-run -p 'src/*.html' -i cp ./src/*.html $dest &
+	watch-run -p 'src/**/*.*' -i cp -r ./src/assets $dest &
 	browser-sync start --server $dest --files $dest
 }
 
