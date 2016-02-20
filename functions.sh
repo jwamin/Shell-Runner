@@ -15,7 +15,7 @@ spin() {
 deleteDir (){
 	if [ -d ./build ]; then
 		echo "build dir exists... removing"
-		rm -r ./build 
+		rm -r ./build
 	fi
 	if [ -d ./dist ]; then
 		echo "dist dir exists... removing"
@@ -50,11 +50,17 @@ compileVendorCss (){
 		mkdir -p $dest/css
 	fi
 	touch $dest/css/vendor.css &&
-	cat ./node_modules/animate.css/animate.css > $dest/css/vendor.css &&
-	cat ./node_modules/purecss/build/pure-min.css >> $dest/css/vendor.css &&
-	cat ./node_modules/purecss/build/grids-responsive-min.css >> $dest/css/vendor.css &&
-	cat ./node_modules/sweetalert/dist/sweetalert.css >> $dest/css/vendor.css 
-	
+	vendorCSSLength=$(cat ./package.json | node ./node_modules/json/lib/json.js vendor.length)
+	vendorCSSLength=$(($vendorCSSLength - 1))
+	START=0
+	END=vendorCSSLength
+	for (( i=$START; i<=$END; i++ ))
+	do
+		echo "in loop"
+		echo $i
+		cat $(cat ./package.json | node ./node_modules/json/lib/json.js vendor[$i]) >> $dest/css/vendor.css
+	done
+	echo "done"
 }
 
 postIfy(){
@@ -70,8 +76,8 @@ webpackER () {
 	else
 		webpack --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js
 	fi
-	
-	
+
+
 }
 
 babelify () {
@@ -86,7 +92,7 @@ htmlCopy() {
 
 uppercaseERER(){
 	while read line; do
-		echo $line | tr [a-z] [A-Z] 
+		echo $line | tr [a-z] [A-Z]
 		break;
 	done
 }
@@ -106,7 +112,7 @@ watchTasks(){
 	# csscmd=$csscmd2"/css/package.css" &&
 	# echo $csscmd &&
 	#watchy --watch ./src/scss -- bash -c $csscmd &
-	
+
 	watchy --silent --watch ./src/scss -- bash -c  \
 	"node-sass src/scss/main.scss ${dest}/css/package.css &&
 	postcss -c ./postcss.json -r ${dest}/css/package.css &&
@@ -115,7 +121,7 @@ watchTasks(){
 	#node-sass src/scss/main.scss ./build/css/package.css && postcss -c ./postcss.json -r ./build/css/package.css &
 	# watchy --watch ./src/scss -- node-sass src/scss/main.scss $dest/css/package.css &
 	# watchy --watch $dest/css -- postcss -c ./postcss.json -r $dest/css/package.css &
-	webpack --watch --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js  & 
+	webpack --watch --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js  &
 	watch-run -p 'src/*.html' -i cp ./src/*.html $dest &
 	watch-run -p 'src/**/*.*' -i cp -r ./src/assets $dest &
 	browser-sync start --server $dest --files $dest
@@ -125,12 +131,12 @@ message() {
 	if [ $1 = 0 ];  then
 		echo "]3 |_| | |_ |)   _\~ ~|~ /\ /? ~|~ [- |) "
 elif [ $1 = 1 ];  then
-	echo "\/\/ /\ ~|~ ( |-| | |\| (_," 
+	echo "\/\/ /\ ~|~ ( |-| | |\| (_,"
 elif [ $1 = 2 ];  then
-	echo "/= | |\| | _\~ |-| [- |)"  
+	echo "/= | |\| | _\~ |-| [- |)"
 else
 	echo "no argument"
-fi                                            
+fi
 }
 
 cleanUp () {
@@ -140,7 +146,7 @@ cleanUp () {
 watch () {
 
 	#do build, watch, don't compile
-	
+
 	# do trap , run cleanup on trap
 
 	message 1

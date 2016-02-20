@@ -31,6 +31,7 @@
     "cssnext": "^1.8.4",
     "handlebars": "^4.0.4",
     "handlebars-loader": "^1.1.4",
+    "json": "^9.0.3",
     "minimist": "^1.2.0",
     "node-sass": "^3.4.2",
     "postcss": "^5.0.10",
@@ -41,6 +42,12 @@
     "watchy": "^0.6.5",
     "webpack": "^1.12.2"
   },
+  "vendor":[
+    "./node_modules/animate.css/animate.css",
+    "./node_modules/purecss/build/pure.css",
+    "./node_modules/purecss/build/grids-responsive.css",
+    "./node_modules/sweetalert/dist/sweetalert.css"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./runner.sh build",
