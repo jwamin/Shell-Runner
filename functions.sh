@@ -46,6 +46,7 @@ compileSASSandPost () {
 }
 
 compileVendorCss (){
+	echo "compiling Vendor CSS"
 	if ! [ -d $dest/css ]; then
 		mkdir -p $dest/css
 	fi
@@ -56,9 +57,11 @@ compileVendorCss (){
 	END=vendorCSSLength
 	for (( i=$START; i<=$END; i++ ))
 	do
-		echo "in loop"
-		echo $i
-		cat $(cat ./package.json | node ./node_modules/json/lib/json.js vendor[$i]) >> $dest/css/vendor.css
+		target=$(cat ./package.json | node ./node_modules/json/lib/json.js vendor[$i])
+		echo "$(($i+1))/$(($vendorCSSLength+1))"
+		echo "compiling $target"
+
+		cat $target >> $dest/css/vendor.css
 	done
 	echo "done"
 }
@@ -122,21 +125,21 @@ watchTasks(){
 	# watchy --watch ./src/scss -- node-sass src/scss/main.scss $dest/css/package.css &
 	# watchy --watch $dest/css -- postcss -c ./postcss.json -r $dest/css/package.css &
 	webpack --watch --devtool inline-source-map --module-bind js=babel?presets=es2015,ignore=node_modules src/js/main.js $dest/js/bundle.js  &
-	watch-run -p 'src/*.html' -i cp ./src/*.html $dest &
-	watch-run -p 'src/**/*.*' -i cp -r ./src/assets $dest &
+	#watch-run -p 'src/*.html' -i cp ./src/*.html $dest &
+	#watch-run -p 'src/**/*.*' -i cp -r ./src/assets $dest &
 	browser-sync start --server $dest --files $dest
 }
 
 message() {
 	if [ $1 = 0 ];  then
-		echo "]3 |_| | |_ |)   _\~ ~|~ /\ /? ~|~ [- |) "
-elif [ $1 = 1 ];  then
-	echo "\/\/ /\ ~|~ ( |-| | |\| (_,"
-elif [ $1 = 2 ];  then
-	echo "/= | |\| | _\~ |-| [- |)"
-else
-	echo "no argument"
-fi
+		echo "Build Started"
+	elif [ $1 = 1 ];  then
+		echo "Watching"
+	elif [ $1 = 2 ];  then
+		echo "Finished"
+	else
+		echo "no argument"
+	fi
 }
 
 cleanUp () {
@@ -151,12 +154,14 @@ watch () {
 
 	message 1
 	devModernize
-	# createWorkingDir
-	# deleteDir
-	# compileSASSandPost
+	deleteDir
+	createWorkingDir
+	compileSASSandPost
 	compileVendorCss
-	# webpackER
-	# htmlCopy
+	webpackER
+	htmlCopy
+	cleanUp
+	devModernize
 	watchTasks
 }
 

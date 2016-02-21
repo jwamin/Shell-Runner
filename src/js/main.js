@@ -43,5 +43,9 @@ var elem = document.createElement("h1");
 elem.innerHTML = myObj.readPrivate();
 document.body.appendChild(elem)
 
+console.log(document.body.classList.contains("hidden"))
+document.body.classList.remove("hidden")
+console.log(document.body.classList.contains("hidden"))
+document.body.classList.add("anim")
 
 swal({   title: "Error!",   text: "Here's my error message!",   type: "error",   confirmButtonText: "Cool" });
