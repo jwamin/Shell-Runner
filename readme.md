@@ -9,7 +9,9 @@ A simple project task runner with build, watch and dist
 ## Usage
 
 `npm run build` - Builds project to 'build' folder
+
 `npm run watch` - Build project to 'build' folder - start browser-sync
+
 `npm run dist` - Compile project to dist folder and minify, removes 'build' folder
 
 ## Credits
